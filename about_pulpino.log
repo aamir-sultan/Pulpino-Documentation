@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.16)  20 NOV 2020 16:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.16)  20 NOV 2020 16:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -79,14 +79,7 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count175
 \l__pdf_internal_box=\box45
 )
-(./about_pulpino.aux
-
-LaTeX Warning: Label `fig:succes_exec' multiply defined.
-
-
-LaTeX Warning: Label `fig:succes_exec@cref' multiply defined.
-
-)
+(./about_pulpino.aux)
 \openout1 = `about_pulpino.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
@@ -103,7 +96,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count176
 \scratchdimen=\dimen137
@@ -316,10 +310,6 @@ Overfull \hbox (36.17468pt too wide) in paragraph at lines 392--393
  [] 
  []
 
-
-LaTeX Warning: Reference `fig:modelsim_error' on page 1 undefined on input line
- 395.
-
 <modelsim_error.png, id=34, 1013.28563pt x 347.79938pt>
 File: modelsim_error.png Graphic file (type png)
 <use modelsim_error.png>
@@ -338,14 +328,7 @@ ithub . com / pulp-[]platform$\OT1/cmr/m/n/12 ,
  []
 
 ) [9 <./success_exec.png (PNG copy)>] [10 <./modelsim_error.png (PNG copy)>]
-(./about_pulpino.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+(./about_pulpino.aux) ) 
 Here is how much of TeX's memory you used:
  3568 strings out of 483183
  63387 string characters out of 5966291
@@ -354,14 +337,15 @@ Here is how much of TeX's memory you used:
  542602 words of font info for 63 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  30i,6n,31p,610b,308s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/aamirsultan/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcbx12
-00.600pk> </home/aamirsultan/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec
-/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on about_pulpino.pdf (10 pages, 342655 bytes).
+ </home/aamirsultan/.texlive2019/texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/tcbx1200.600pk> </home/aamirsultan/.texlive2019/texmf-var/fonts/
+pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
+2.pfb>
+Output written on about_pulpino.pdf (10 pages, 342641 bytes).
 PDF statistics:
  70 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream
