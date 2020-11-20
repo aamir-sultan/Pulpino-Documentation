@@ -16,4 +16,8 @@ H.~H. Hung, ``Modelsim installation.''
 \bibitem{pulp_plat_ref}
 E.~Zurich, ``pulp-platform.'' \url{https://github.com/pulp-platform}, 2016.
 
+\bibitem{additional_scripts}
+A.~Sultan, ``Additional scripts.''
+  \url{https://github.com/Lampro-Mellon/Pulpino-Setup.git}, 2020.
+
 \end{thebibliography}

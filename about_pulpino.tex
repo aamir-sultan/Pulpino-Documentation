@@ -158,7 +158,7 @@ Check the version of the cmake by using the the follwoing command if it is corre
 			\label{fig:modelsim_download}
 	\end{figure}
 
-Once the ModelSim is downloaded it will in the form of \emph{.run} file. To install goto the download location of the modelsim \emph{.run} file and run the following commands. 
+Once the ModelSim is downloaded it will in the form of \emph{.run} file. To install go to the download location of the Modelsim \emph{.run} file and run the following commands. 
 
 \begin{center}
 	\fbox{\centering
@@ -256,6 +256,16 @@ Hopefully this will solve the problem.
 	}}}
 \end{center}
 
+
+
+\item	To set the path to the binaries use following command.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ export PATH=\$PATH:/opt/riscv/bin
+	}}}
+\end{center}
+
 \item To build the Newlib cross-compiler for all pulp variants, pick an install path. If you choose, say, /opt/riscv, then add /opt/riscv/bin to your PATH now. Then, simply run the following command in the cloned directory:
 
 \begin{center}
@@ -266,13 +276,6 @@ Hopefully this will solve the problem.
 	}}}
 \end{center}
 
-\item	To set the path to the binaries use following command.
-\begin{center}
-	\fbox{\centering
-		\parbox{\cmdbox}{\centering{
-				\bfseries	\$ export PATH=\$PATH:/opt/riscv/bin
-	}}}
-\end{center}
 
 \item To build the Newlib cross-compiler, pick an install path. If you choose, say, /opt/riscv, then add /opt/riscv/bin to your PATH now. Then, simply run the following command:
 
@@ -284,6 +287,15 @@ Hopefully this will solve the problem.
 	}}}
 \end{center}
 
+\item If it gives error then try installing the essentials for correct working using the following command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo apt-get update\\
+				\bfseries	\$ sudo apt-get install -y build-essential
+	}}}
+\end{center}
 
 \item Setting the Environment paths.
 
@@ -298,27 +310,94 @@ Hopefully this will solve the problem.
 
 \item Change the directory to the \emph{/pulpino/sw/build} and use the following command.
 
-\begin{center}
-	\fbox{\centering
-		\parbox{\cmdbox}{\centering{
-				\bfseries	\$ cmake ..
-	}}}
-\end{center}
-It will create the \emph{makefile} and other files for further executions.It will create the \emph{makefile} and other files for further executions.
 
 
-
-\item If it gives error then try installing the essentials for correct working using the following command.
+\item We need to change some flags for the correct building of the pulpino. We will do these steps by using a script that we can get from \cite{additional_scripts}. We can get the script as follows.
 
 \begin{center}
 	\fbox{\centering
 		\parbox{\cmdbox}{\centering{
-				\bfseries	\$ sudo apt-get update\\
-				\bfseries	\$sudo apt-get install -y build-essential
+				\bfseries	\$ cd ../../	\\
+				\bfseries	\$ git clone git@github.com:Lampro-Mellon/Pulpino-Setup.git	\\
+				\bfseries 	\$ cd sw/build/	\\
+				\bfseries	\$ cp ../../Pulpino-Setup/replace\_m32.sh ./..; cp ../../Pulpino-Setup/repair\_riscv\_linker.sh .
 	}}}
 \end{center}
 
+\item We will run these scripts and the configuration script for pulpino. Use the following commands to run the \emph{replace\_m32.sh} script. 
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cd ../; ./replace\_m32.sh; cd build	
+	}}}
+\end{center}
+it will ask twice for \emph{yes\slash no}. Use \emph{n} for both entries.
 
+\item We need to copy the configuration script to the build folder.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cp ../cmake\_configure.zeroriscy.gcc.sh .
+	}}}
+\end{center}
+
+This command will copy the cmake\_configure.zeroriscy.sh file to build folder that we created. One can change the script file for riscy or other that are included in the \emph{sw} folder.
+
+\item We need to change the configuration script mode for execution of the script using following command.
+ \begin{center}
+ 	\fbox{\centering
+ 		\parbox{\cmdbox}{\centering{
+ 				\bfseries	\$ chmod +x cmake\_configure.zeroriscy.gcc.sh
+
+ 	}}}
+ \end{center}
+
+
+\item We need to change the configuration script mode for execution of the script using following command.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ ./cmake\_configure.zeroriscy.gcc.sh
+				}}}
+\end{center}
+
+\item The script running will throw an error at the first running of the configuration script. The error is basically generated from a linker file that is not existent in the generated files. This linker has no use but just a file. We need to generate this file somehow so we wrote a script that we already copied from the additional files repository. Other thing to mention is that after one execution the configuration script deletes this file again so we will be running the previous step and this step multiple times. The script is executed with the following command.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ ./repair\_riscv\_linker.sh
+	}}}
+\end{center}
+
+After multiple times repetition of the steps \emph{28} and \emph{29} it will create the \emph{makefile} and other files for further executions. If correctly generated it will show something like this \Cref{fig:succes_exec}
+
+	\begin{figure}[hb]
+	\picbox{success_exec.png}{Successful execution of the configuration script}
+	\label{fig:succes_exec}
+\end{figure}
+
+\item Use the following command to compile the pulpino using Modelsim.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ make vcompile
+	}}}
+\end{center}
+
+\item We will run the \emph{helloworld} test on the compiled pulpino using the following commands.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ make helloworld.vsim
+	}}}
+\end{center}
+
+\item The above command will execute and invoke the Modelsim GUI but there is a chance of it throwing an error like the following \Cref{fig:modelsim_error}.
+
+	\begin{figure}[hb]
+	\picbox{modelsim_error.png}{Modelsim error on the execution of the \emph{helloworld} test}
+	\label{fig:modelsim_error}
+\end{figure}
 
 \end{enumerate}
 
