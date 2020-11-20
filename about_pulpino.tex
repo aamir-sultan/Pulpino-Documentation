@@ -1,0 +1,335 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{secdot}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\renewcommand{\labelitemii}{$\star$}
+\newcommand{\cmdbox}{\textwidth}
+%\newcommand{\picbox}{width = .8\textwidth}
+
+\newcommand{\picbox}[2]{\centering
+		 \includegraphics[width = .8\textwidth]{{#1}}
+		 \caption{{#2}}
+		 }
+
+	\title{\bfseries About Pulpino}	
+	\author{Aamir Sultan,\\Associate Design Engineer,\\Lampromellon.}
+	\date{November, 2020}
+\begin{document}
+	\maketitle
+	
+		
+	In this document we will see the finding and knowledge obtained during the study of Pulpino micro-controller in this week.
+	\section{What is Pulpino?}
+	Pulpino is a microcontroller developed at ETH Zurich university\cite{pulp_ref}. This microcontroller is using single-core which can configured for RISCY or Zero-Riscy core. 
+	\subsection{RISCY properties}
+	Properties of the RISCY core are given as follows:
+	
+	\begin{itemize}
+		\item Pipeline stages 4, In order, IPC nearly 1.
+		\item Support for RV32IMC, can also be configure for the RV32F.
+		\item Other supported ISA extensions.
+		
+		\begin{itemize}
+			
+			\item hardware loops
+			\item post-incrementing load and store instructions
+			\item bit-manipulation instructions
+			\item MAC operations
+			\item support fixed-point operations
+			\item packed-SIMD instructions
+			\item dot product
+		\end{itemize}
+	
+	\subsection{Zero-Riscy Properties}
+		Zero-Riscy is an In order, single issue with 2 pipeline stages. It supports RV32IMCE of RISC-V architecture extensions. Other properties of the Zero-Riscy are as folows:
+		\begin{itemize}
+			\item Ultra Low Power.
+			\item Ultra Low Area.
+			\item Switch to Ultra Low power mode while IDLE.
+			\item Wake up unit in-case of interrupt or event.
+		\end{itemize} 
+	\end{itemize}
+
+\section{Building the Pulpino}
+Following is the command list that is used for the building of the core form the Git repository\cite{pulp_ref}.
+
+\begin{enumerate}
+	
+	
+		\item One can check for the packages using the following command which looks for packages in \emph{PyPI} with yaml in the short description. That reveals various packages, including \emph{PyYaml}, \emph{yamltools}, and \emph{PySyck}, among others (Note that \emph{PySyck} docs recommend using \emph{PyYaml}, since \emph{syck} is out of date). Now you know a specific package name, you can install it.
+	
+	\begin{center}
+		\fbox{\centering
+			\parbox{\cmdbox}{\centering{
+					\bfseries \$ pip search yaml
+		}}}
+	\end{center}
+
+		\item If the pip is not installed you can install it via the following code.
+
+	\begin{center}
+		\fbox{\centering
+			\parbox{\cmdbox}{\centering{
+					\bfseries \$ sudo apt install python-pip
+		}}}
+	\end{center}
+	
+	\item First of all install the pyyaml for python2 incase if it is used in the building process of the SoC.
+	
+	\begin{center}
+		\fbox{\centering
+			\parbox{\cmdbox}{\centering{
+				\bfseries	\$ pip install pyyaml
+		}}}
+	\end{center}
+
+	\item In the second step install the yaml library with pyhton3 using the following command.
+
+	\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+			\bfseries	\$ pip3 install pyyaml
+		}}}
+	\end{center}
+
+	\item Make a build folder inside the sw folder of the pulpino main directory. We will use it for keeping the settings of the core that we want to generate. Following command will create the build folder. 
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ mkdir ./sw/build
+	}}}
+
+\end{center}
+
+	\item For copying the configuration file we use the copy command as follows.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cp ./sw/cmake\_configure.zeroriscy.gcc.sh ./sw/build
+	}}}
+
+\end{center}
+
+the configuration files are placed in sw folder. The other configuration files can be used for building also. One has to repeat the step 6 and change the \emph{cmake\_configure.zeroriscy.gcc.sh} by other configuration files that are given as follows.
+
+\begin{itemize}
+	\item	cmake\_configure.zeroriscy.gcc.sh
+	\item	cmake\_configure.riscvfloat.gcc.sh
+	\item 	cmake\_configure.riscv.gcc.sh
+	\item	cmake\_configure.microriscy.gcc.sh
+	
+\end{itemize}
+
+	\item We need to install a special makefile utility by the name of Cmake. CMake uses a simple platform and compiler-independent configuration files to control the software compilation process. We the follow the following commands\cite{cmake_ref}:
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo apt update\\
+							\$ sudo apt upgrade\\
+							\$ sudo snap install cmake -{}-classic
+	}}}
+\end{center}
+
+Check the version of the cmake by using the the follwoing command if it is correctly installed then it will show the version of the Cmake installed.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cmake -{}-version
+	}}}
+\end{center}
+
+\item We also need the modelsim for the simulation of the SoC \cite{modelsim_install_ref}. However the modelsim should be installed on the system but incase if is not installed you can send a request for download at \url{https://fpgasoftware.intel.com/20.1/?edition=lite&platform=linux}. On this page goto individual files and click on the down arrow for downloading the Modelsim Starter Pack, \Cref{fig:modelsim_download}. 
+
+\emph{Note :} If ModelSim is already installed then you skip to step number 15.
+
+ %On this page click \emph{Download}. 
+%This will bring up another page click on \emph{Create Account}. 
+%This will bring up a form and after filling the form \Cref{fig:form}. It send a download link at your given email. 
+
+	\begin{figure}
+			\picbox{modelsim_download}{Download Options}
+			\label{fig:modelsim_download}
+	\end{figure}
+
+Once the ModelSim is downloaded it will in the form of \emph{.run} file. To install goto the download location of the modelsim \emph{.run} file and run the following commands. 
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ chmod +x ModelSimSetup-*.run
+	}}}
+\end{center}
+
+\item Next we will install the ModelSim by using the following commands.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ ./ModelSimSetup-*.run
+	}}}
+\end{center}
+
+\item Change your directory to\\ \emph{``ModelSim-Installation-Directory/intelFPGA/20.*/modelsim\_ase/linuxaloem”} using the command.
+
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cd ModelSim-Installation-Directory/intelFPGA/20.*/modelsim\_ase/linuxaloem
+	}}}
+\end{center}
+
+\item	Type the following command to run modelsim.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cd ./vsim
+	}}}
+\end{center}
+
+\item if the ModelSim is executed its fine otherwise you will have add few libraries. if the error is given as \emph{./vsim: No such file or directory} then use following commands.
+\emph{Note:} In case the model-sim is invoked successfully you can skip to step number 15.
+
+\item	Type the following command to run modelsim.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo dpkg -{}-add-architecture i386\\ 
+				\bfseries	\$ sudo apt-get update \\
+				\bfseries	\$ sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386\\ 
+				\bfseries	\$ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0
+	}}}
+\end{center}
+
+\item try again if executed otherwise it will possibly give the following \emph{errorlibXft.so.2: cannot open shared object file}.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo  apt-get install libxft2 libxft2:i386 lib32ncurses5
+	}}}
+\end{center}
+
+Another error that will pop \emph{libXext.so.6: cannot open shared object file. libXext.so.6 not found}. Use following command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo apt install libxext6\\
+				\bfseries	\$ sudo apt install libxext6:i386
+	}}}
+\end{center}
+
+Hopefully this will solve the problem.
+
+\item We need Verillator for evaluation. We can install the Verillator using following command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ apt-get install verilator
+	}}}
+\end{center}
+
+\item We need to clone the RISC-V toolchain for the compilation and running of the SoC. We will clone the toolchain from pulp platform using the following commands, \cite{pulp_plat_ref}.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ git clone -{}-recursive https://github.com/pulp-platform/pulp-riscv-gnu-toolchain
+	}}}
+\end{center}
+
+\item Setting and building the tool-chain using command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev
+	}}}
+\end{center}
+
+\item To build the Newlib cross-compiler for all pulp variants, pick an install path. If you choose, say, /opt/riscv, then add /opt/riscv/bin to your PATH now. Then, simply run the following command in the cloned directory:
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ ./configure -{}-prefix=/opt/riscv --with-arch=rv32gc --with-cmodel=medlow --enable-multilib\\
+				\bfseries	\$ sudo make
+	}}}
+\end{center}
+
+\item	To set the path to the binaries use following command.
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ export PATH=\$PATH:/opt/riscv/bin
+	}}}
+\end{center}
+
+\item To build the Newlib cross-compiler, pick an install path. If you choose, say, /opt/riscv, then add /opt/riscv/bin to your PATH now. Then, simply run the following command:
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ ./configure --prefix=/opt/riscv\\
+				\bfseries	\$ sudo make
+	}}}
+\end{center}
+
+
+\item Setting the Environment paths.
+
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ export PULP\_RISCV\_GCC\_TOOLCHAIN=/opt/riscv/bin
+	}}}
+\end{center}
+
+
+\item Change the directory to the \emph{/pulpino/sw/build} and use the following command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ cmake ..
+	}}}
+\end{center}
+It will create the \emph{makefile} and other files for further executions.It will create the \emph{makefile} and other files for further executions.
+
+
+
+\item If it gives error then try installing the essentials for correct working using the following command.
+
+\begin{center}
+	\fbox{\centering
+		\parbox{\cmdbox}{\centering{
+				\bfseries	\$ sudo apt-get update\\
+				\bfseries	\$sudo apt-get install -y build-essential
+	}}}
+\end{center}
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+\bibliography{ref}
+\bibliographystyle{ieeetr}
+	
+	
+\end{document}

@@ -1,0 +1,19 @@
+\begin{thebibliography}{1}
+
+\bibitem{pulp_ref}
+E.~Zurich, ``Pulpino.'' \url{https://github.com/pulp-platform/pulpino}, 2016.
+
+\bibitem{cmake_ref}
+fosslinux, ``Cmake.''
+  \url{https://www.fosslinux.com/38392/how-to-install-cmake-on-ubuntu.htm},
+  2020.
+
+\bibitem{modelsim_install_ref}
+H.~H. Hung, ``Modelsim installation.''
+  \url{https://yoloh3.github.io/linux/2016/12/24/install-modelsim-in-linux/},
+  2016.
+
+\bibitem{pulp_plat_ref}
+E.~Zurich, ``pulp-platform.'' \url{https://github.com/pulp-platform}, 2016.
+
+\end{thebibliography}
